@@ -13,6 +13,9 @@ public class Orden {
     public String cliente;
     public String observacion;
 
+    public Orden() {
+    }
+
     public Orden(String id, String nombre, int cantidad, double precio, String cliente, String observacion) {
         this.id = id;
         this.nombre = nombre;
