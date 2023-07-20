@@ -10,7 +10,7 @@ import java.sql.*;
 public class ConexionSQL { // <- Editar por el nombre del archivo de la clase
 
     static String host = "localhost";
-    static String port = "1433";
+    static String port = "62312";
     static String database = "RestauranteSuvi"; // <- Editar por su base de datos
     static String user = "prueba"; // <- Editar por su base de datos
     static String password = "1234"; // <- Editar por su base de datos
