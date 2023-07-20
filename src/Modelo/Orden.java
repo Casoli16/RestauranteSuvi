@@ -32,8 +32,15 @@ public class Orden {
 
 
     public static boolean agregarOrden(Orden orden) {
-        return false;
-    }
+//        var conexion = ConexionSQL.getConexion();
+//        assert conexion != null;
+//        
+//        try{
+//           var cadena = conexion.prepareStatement("INSERT INTO Orden(nombre, cantidad, precio, cliente, observacion) VALUES(?,?,?,?,?)");
+//           C
+//          
+//        }
+    }?
 
     public static void main(String[] args) {
         var resultado = Orden.agregarOrden(new Orden("Coca Cola", 2, 1.5, "Susan", "Con salsa de mostaza y miel"));

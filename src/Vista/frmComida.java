@@ -243,9 +243,9 @@ public class frmComida extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizaar;
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnEliminar;
+    public javax.swing.JButton btnActualizaar;
+    public javax.swing.JButton btnAgregar;
+    public javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -253,16 +253,16 @@ public class frmComida extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableOrden;
-    private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtCliente;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtObservacion;
-    private javax.swing.JTextField txtPrecio;
+    public javax.swing.JTable jTableOrden;
+    public javax.swing.JTextField txtCantidad;
+    public javax.swing.JTextField txtCliente;
+    public javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtObservacion;
+    public javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }
