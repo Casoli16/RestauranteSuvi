@@ -1,6 +1,8 @@
 package Modelo;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Orden {
@@ -28,35 +30,32 @@ public class Orden {
         this.observacion = observacion;
     }
 
-//    public static void main(String[] args) {
-//        var resultado = Orden.agregarOrden(new Orden("Coca Cola", 2, 1.5, "Susan", "Con salsa de mostaza y miel"));
-//        System.out.println(resultado);
-//    }
 
     public static boolean agregarOrden(Orden orden) {
+        return false;
+    }
+
+    public static void main(String[] args) {
+        var resultado = Orden.agregarOrden(new Orden("Coca Cola", 2, 1.5, "Susan", "Con salsa de mostaza y miel"));
+        System.out.println(resultado);
+    }
+
+
+    public static List<Orden> leerOrdenes() {
+        List<Orden> ordenes = new ArrayList<>();
+
         var conexion = ConexionSQL.getConexion();
         assert conexion != null;
 
         try {
-            var sentencia = conexion.prepareStatement("INSERT INTO Orden (nombre, cantidad, precio, cliente, observacion) VALUES (?, ?, ?, ?, ?);");
-            sentencia.setString(1, orden.nombre);
-            sentencia.setInt(2, orden.cantidad);
-            sentencia.setDouble(3, orden.precio);
-            sentencia.setString(4, orden.cliente);
-            sentencia.setString(5, orden.observacion);
+            var sentencia = conexion.prepareStatement("SELECT * FROM Orden;");
 
-            var resultado = sentencia.executeUpdate();
-
-            conexion.close();
-            return resultado == 1;
+            retrieveOrdenes((List<Orden>) ordenes, sentencia);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        return false;
-    }
 
-    public static List<Orden> leerOrdenes() {
-            return null;
+        }
+        return ordenes;
     }
 
 
@@ -65,14 +64,54 @@ public class Orden {
 
     }
 
-    public static boolean eliminarOrden() {
+    public static boolean eliminarOrden(int id) {
+        var conexion = ConexionSQL.getConexion();
+        assert conexion != null;
+
+        try {
+            var sentencia = conexion.prepareStatement("DELETE FROM Orden WHERE id LIKE %?%");
+
+            sentencia.setInt(1, id);
+            var resultado = sentencia.executeUpdate();
+            return resultado == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         return false;
+    }
+
+    public static List<Orden> searchOrden(String name) {
+        List<Orden> ordenes = new ArrayList<>();
+
+        var conexion = ConexionSQL.getConexion();
+        assert conexion != null;
+
+        try {
+            var sentencia = conexion.prepareStatement("SELECT * FROM Orden WHERE nombre LIKE ?;");
+            sentencia.setString(1, "%" + name + "%");
+
+            retrieveOrdenes((List<Orden>) ordenes, sentencia);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return ordenes;
 
     }
 
-    public static List<Orden> searchOrden() {
-        return null;
+    private static void retrieveOrdenes(List<Orden> ordenes, PreparedStatement sentencia) throws SQLException {
+        var resultado = sentencia.executeQuery();
+        while (resultado.next()) {
+            var id = resultado.getString("id");
+            var nombre = resultado.getString("nombre");
+            var cantidad = resultado.getInt("cantidad");
+            var precio = resultado.getDouble("precio");
+            var cliente = resultado.getString("cliente");
+            var observacion = resultado.getString("observacion");
 
+            var orden = new Orden(id, nombre, cantidad, precio, cliente, observacion);
+            ordenes.add(orden);
+        }
     }
 }
