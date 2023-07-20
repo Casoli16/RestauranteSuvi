@@ -1,5 +1,3 @@
-USE master;
-DROP DATABASE RestauranteSuvi;
 CREATE DATABASE RestauranteSuvi;
 USE RestauranteSuvi;
 
