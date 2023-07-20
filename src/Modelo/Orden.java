@@ -32,15 +32,24 @@ public class Orden {
 
 
     public static boolean agregarOrden(Orden orden) {
-//        var conexion = ConexionSQL.getConexion();
-//        assert conexion != null;
-//        
-//        try{
-//           var cadena = conexion.prepareStatement("INSERT INTO Orden(nombre, cantidad, precio, cliente, observacion) VALUES(?,?,?,?,?)");
-//           C
-//          
-//        }
-    }?
+        var conexion = ConexionSQL.getConexion();
+        assert conexion != null;
+        
+        try{
+           var cadena = conexion.prepareStatement("INSERT INTO Orden(nombre, cantidad, precio, cliente, observacion) VALUES(?,?,?,?,?)");
+           cadena.setString(1, orden.nombre);
+           cadena.setDouble(2, orden.cantidad);
+           cadena.setDouble(3, orden.precio);
+           cadena.setString(4, orden.cliente);
+           cadena.setString(5, orden.observacion);
+           cadena.executeUpdate();
+           
+           return true;
+        }catch(SQLException e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
 
     public static void main(String[] args) {
         var resultado = Orden.agregarOrden(new Orden("Coca Cola", 2, 1.5, "Susan", "Con salsa de mostaza y miel"));
@@ -66,9 +75,24 @@ public class Orden {
     }
 
 
-    public static boolean updateOrdenes() {
-        return false;
-
+    public static boolean updateOrdenes(Orden orden) {
+         var conexion = ConexionSQL.getConexion();
+        assert conexion != null;
+        
+        try{
+           var cadena = conexion.prepareStatement("UPDATE Orden set nombre= ?, cantidad =?, precio=?, cliente=?, observcaion=? where id = ?");
+           cadena.setString(1, orden.nombre);
+           cadena.setDouble(2, orden.cantidad);
+           cadena.setDouble(3, orden.precio);
+           cadena.setString(4, orden.cliente);
+           cadena.setString(5, orden.observacion);
+           cadena.executeUpdate();
+           
+           return true;
+        }catch(SQLException e){
+            System.out.println(e.toString());
+            return false;
+        }
     }
 
     public static boolean eliminarOrden(int id) {
