@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Orden {
-    public String id;
+    public int id;
     public String nombre;
     public int cantidad;
     public double precio;
@@ -16,7 +16,7 @@ public class Orden {
     public Orden() {
     }
 
-    public Orden(String id, String nombre, int cantidad, double precio, String cliente, String observacion) {
+    public Orden(int id, String nombre, int cantidad, double precio, String cliente, String observacion) {
         this.id = id;
         this.nombre = nombre;
         this.cantidad = cantidad;
@@ -83,12 +83,13 @@ public class Orden {
         assert conexion != null;
         
         try{
-           var cadena = conexion.prepareStatement("UPDATE Orden set nombre= ?, cantidad =?, precio=?, cliente=?, observcaion=? where id = ?");
+           var cadena = conexion.prepareStatement("UPDATE Orden set nombre= ?, cantidad =?, precio=?, cliente=?, observacion=? where id = ?");     
            cadena.setString(1, orden.nombre);
            cadena.setDouble(2, orden.cantidad);
            cadena.setDouble(3, orden.precio);
            cadena.setString(4, orden.cliente);
            cadena.setString(5, orden.observacion);
+           cadena.setInt(6, orden.id);
            cadena.executeUpdate();
            
            return true;
@@ -103,7 +104,7 @@ public class Orden {
         assert conexion != null;
 
         try {
-            var sentencia = conexion.prepareStatement("DELETE FROM Orden WHERE id LIKE %?%");
+            var sentencia = conexion.prepareStatement("DELETE FROM Orden WHERE id = ?");
 
             sentencia.setInt(1, id);
             var resultado = sentencia.executeUpdate();
@@ -137,7 +138,7 @@ public class Orden {
     private static void retrieveOrdenes(List<Orden> ordenes, PreparedStatement sentencia) throws SQLException {
         var resultado = sentencia.executeQuery();
         while (resultado.next()) {
-            var id = resultado.getString("id");
+            var id = resultado.getInt("id");
             var nombre = resultado.getString("nombre");
             var cantidad = resultado.getInt("cantidad");
             var precio = resultado.getDouble("precio");
